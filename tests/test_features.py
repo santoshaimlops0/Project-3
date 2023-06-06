@@ -11,14 +11,14 @@ import pdb
 
 import numpy as np
 from bike_share.config.core import config
-from bike_share.processing.features import WeekdayImputer
-from tests.conftest import sample_input_data
+# from bike_share.processing.features import WeekdayImputer
+# from tests.conftest import sample_input_data
 
 def test_Weekday_Is_Nan(sample_input_data):
     # Given
     assert np.isnan(sample_input_data.loc[5,'weekday'])
    
 
-if __name__ == "__main__":
-    X_Test = sample_input_data()
-    test_Weekday_Is_Nan(X_Test)
+# if __name__ == "__main__":
+#     X_Test = sample_input_data()
+#     test_Weekday_Is_Nan(X_Test)
