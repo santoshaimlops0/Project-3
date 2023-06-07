@@ -19,27 +19,16 @@ pipeline_file_name = f"{config.app_config.pipeline_save_file}{_version}.pkl"
 bike_share_pipe= load_pipeline(file_name=pipeline_file_name)
 
 y_test1 = pd.DataFrame
-def make_prediction(*,input_data: dict) -> dict:
+def make_prediction(*,input_data) -> dict:
     """Make a prediction using a saved model """
-    data_frame=pd.DataFrame(input_data)
-
+    data_frame=pd.DataFrame(input_data[0])
     data = get_year_and_month(data_frame)
-    #print(data.info)
     #data=data.reindex(columns=['dteday','season','hr','holiday', 'weekday','workingday','weathersit','temp','atemp','hum','windspeed','casual','registered','yr','mnth'])
     
-    X_test = get_year_and_month(data)
-    
-    y_pred = bike_share_pipe.predict(X_test)
-    r2_s = r2_score(y_test1, y_pred)
-    print(type(r2_s))
-    print("R2 score:", r2_score(y_test1, y_pred))
-    print("Mean squared error:", mean_squared_error(y_test1, y_pred))
-    
+    y_pred = bike_share_pipe.predict(data)
+    r2_s = r2_score(input_data[1], y_pred)
+    print("Mean squared error:", mean_squared_error(input_data[1], y_pred))
     results = {"r2_score": r2_s, "version": _version, "error": None }
-    
-    # predictions = bike_share_pipe.predict(data)
-
-    # results = {"predictions": predictions[431],"version": _version}
     print(results)
 
     return results
@@ -58,5 +47,5 @@ def split_data(data):
 if __name__ == "__main__":
     data = load_dataset(file_name=config.app_config.training_data_file)
     X_test, y_test = split_data(data)
-    y_test1 = y_test
-    make_prediction(input_data=X_test)
+    #y_test1 = y_test
+    make_prediction(input_data=[X_test,y_test])

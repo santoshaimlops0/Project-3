@@ -8,6 +8,7 @@ import re
 import joblib
 import pandas as pd
 from sklearn.pipeline import Pipeline
+import sklearn
 
 from bike_share import __version__ as _version
 from bike_share.config.core import DATASET_DIR, TRAINED_MODEL_DIR, config
